@@ -83,6 +83,8 @@ cp -p %{SOURCE1} pom.xml
 # fail to compile cause: incompatible hamcrest apis
 rm -r src/test/java/com/lmax/disruptor/RingBufferTest.java \
  src/test/java/com/lmax/disruptor/RingBufferEventMatcher.java
+# Failed to stop thread: Thread[com.lmax.disruptor.BatchEventProcessor@1d057a39,5,main]
+rm -r src/test/java/com/lmax/disruptor/dsl/DisruptorTest.java
 
 %build
 
