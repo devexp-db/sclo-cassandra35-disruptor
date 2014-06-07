@@ -23,7 +23,7 @@ BuildRequires: mvn(com.google.caliper:caliper:0.5-rc1)
 # NOTE: the project is buildable with gradle by default
 BuildRequires: maven-local
 BuildRequires: maven-plugin-bundle
-BuildRequires: maven-surefire-provider-junit4
+BuildRequires: maven-surefire-provider-junit
 
 BuildArch:     noarch
 
