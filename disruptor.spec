@@ -94,10 +94,10 @@ rm -r src/test/java/com/lmax/disruptor/dsl/DisruptorTest.java
 
 %files -f .mfiles
 %doc README.md
-%license LICENSE.txt
+%license LICENCE.txt
 
 %files javadoc -f .mfiles-javadoc
-%license LICENSE.txt
+%license LICENCE.txt
 
 %changelog
 * Sun Feb 01 2015 gil cattaneo <puntogil@libero.it> 3.2.1-3
