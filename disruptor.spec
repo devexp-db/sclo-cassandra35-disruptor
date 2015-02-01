@@ -1,13 +1,11 @@
 Name:          disruptor
 Version:       3.2.1
-Release:       2%{?dist}
+Release:       3%{?dist}
 Summary:       Concurrent Programming Framework
 License:       ASL 2.0
 URL:           http://lmax-exchange.github.io/disruptor/
 Source0:       https://github.com/LMAX-Exchange/disruptor/archive/%{version}.tar.gz
 Source1:       http://repo1.maven.org/maven2/com/lmax/%{name}/%{version}/%{name}-%{version}.pom
-
-BuildRequires: java-devel
 
 # test deps
 BuildRequires: mvn(junit:junit)
@@ -23,7 +21,6 @@ BuildRequires: mvn(com.google.caliper:caliper:0.5-rc1)
 # NOTE: the project is buildable with gradle by default
 BuildRequires: maven-local
 BuildRequires: maven-plugin-bundle
-BuildRequires: maven-surefire-provider-junit
 
 BuildArch:     noarch
 
@@ -86,21 +83,26 @@ rm -r src/test/java/com/lmax/disruptor/RingBufferTest.java \
 # Failed to stop thread: Thread[com.lmax.disruptor.BatchEventProcessor@1d057a39,5,main]
 rm -r src/test/java/com/lmax/disruptor/dsl/DisruptorTest.java
 
+%mvn_file :%{name} %{name}
+
 %build
 
-%mvn_file :%{name} %{name}
 %mvn_build -- -Dproject.build.sourceEncoding=UTF-8
 
 %install
 %mvn_install
 
 %files -f .mfiles
-%doc LICENCE.txt README.md
+%doc README.md
+%license LICENSE.txt
 
 %files javadoc -f .mfiles-javadoc
-%doc LICENCE.txt
+%license LICENSE.txt
 
 %changelog
+* Sun Feb 01 2015 gil cattaneo <puntogil@libero.it> 3.2.1-3
+- introduce license macro
+
 * Sat Jun 07 2014 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 3.2.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_21_Mass_Rebuild
 
