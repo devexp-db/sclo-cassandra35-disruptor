@@ -1,11 +1,13 @@
 Name:          disruptor
 Version:       3.3.2
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       Concurrent Programming Framework
 License:       ASL 2.0
 URL:           http://lmax-exchange.github.io/disruptor/
 Source0:       https://github.com/LMAX-Exchange/disruptor/archive/%{version}.tar.gz
 Source1:       http://repo1.maven.org/maven2/com/lmax/%{name}/%{version}/%{name}-%{version}.pom
+# see http://www.jmock.org/threading-synchroniser.html
+Patch0:        disruptor-3.3.2-jmock.patch
 
 BuildRequires: maven-local
 BuildRequires: mvn(junit:junit)
@@ -37,6 +39,8 @@ This package contains javadoc for %{name}.
 find . -name "*.class" -print -delete
 find . -name "*.jar" -type f -print -delete
 
+%patch0 -p1
+
 cp -p %{SOURCE1} pom.xml
 
 # Add OSGi support
@@ -66,7 +70,7 @@ rm -r src/test/java/com/lmax/disruptor/RingBufferTest.java \
 # Failed to stop thread: Thread[com.lmax.disruptor.BatchEventProcessor@1d057a39,5,main]
 rm -r src/test/java/com/lmax/disruptor/dsl/DisruptorTest.java
 # Test fails due to incompatible jmock version
-rm -f src/test/java/com/lmax/disruptor/EventPollerTest.java
+#rm -f src/test/java/com/lmax/disruptor/EventPollerTest.java
 
 %mvn_file :%{name} %{name}
 
@@ -85,6 +89,9 @@ rm -f src/test/java/com/lmax/disruptor/EventPollerTest.java
 %license LICENCE.txt
 
 %changelog
+* Wed Jun 03 2015 gil cattaneo <puntogil@libero.it> 3.3.2-2
+- build fix for jmock 2.8.1
+
 * Wed Jun  3 2015 Mikolaj Izdebski <mizdebsk@redhat.com> - 3.3.2-1
 - Update to upstream version 3.3.2
 
