@@ -10,6 +10,7 @@ Source1:       http://repo1.maven.org/maven2/com/lmax/%{name}/%{version}/%{name}
 BuildRequires: maven-local
 BuildRequires: mvn(junit:junit)
 BuildRequires: mvn(org.apache.felix:maven-bundle-plugin)
+BuildRequires: mvn(org.hamcrest:hamcrest-library)
 BuildRequires: mvn(org.jmock:jmock-junit4)
 BuildRequires: mvn(org.jmock:jmock-legacy)
 
