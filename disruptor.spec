@@ -1,6 +1,6 @@
 Name:          disruptor
 Version:       3.3.2
-Release:       2%{?dist}
+Release:       3%{?dist}
 Summary:       Concurrent Programming Framework
 License:       ASL 2.0
 URL:           http://lmax-exchange.github.io/disruptor/
@@ -89,6 +89,9 @@ rm -r src/test/java/com/lmax/disruptor/dsl/DisruptorTest.java
 %license LICENCE.txt
 
 %changelog
+* Wed Jun 17 2015 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 3.3.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_23_Mass_Rebuild
+
 * Wed Jun 03 2015 gil cattaneo <puntogil@libero.it> 3.3.2-2
 - build fix for jmock 2.8.1
 
