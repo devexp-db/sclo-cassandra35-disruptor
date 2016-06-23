@@ -89,16 +89,7 @@ rm -r src/test/java/com/lmax/disruptor/dsl/DisruptorTest.java
 %license LICENCE.txt
 
 %changelog
-* Thu Jun 23 2016 gil cattaneo <puntogil@libero.it> - 3.3.4-1
-- update to 3.3.4
-
-* Thu Jun 23 2016 gil cattaneo <puntogil@libero.it>
-- update to 3.3.4
-
-* Thu Jun 23 2016 gil cattaneo <puntogil@libero.it>
-- update to 3.3.4
-
-* Thu Jun 23 2016 gil cattaneo <puntogil@libero.it> - 3.3.2-5
+* Thu Jun 23 2016 gil cattaneo <puntogil@libero.it> 3.3.4-1
 - update to 3.3.4
 
 * Wed Feb 03 2016 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.2-4
