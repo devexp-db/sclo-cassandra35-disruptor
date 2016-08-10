@@ -1,20 +1,24 @@
-Name:          disruptor
+%{?scl:%scl_package disruptor}
+%{!?scl:%global pkg_name %{name}}
+
+Name:          %{?scl_prefix}disruptor
 Version:       3.3.4
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       Concurrent Programming Framework
 License:       ASL 2.0
-URL:           http://lmax-exchange.github.io/disruptor/
-Source0:       https://github.com/LMAX-Exchange/disruptor/archive/%{version}.tar.gz
-Source1:       http://repo1.maven.org/maven2/com/lmax/%{name}/%{version}/%{name}-%{version}.pom
+URL:           http://lmax-exchange.github.io/%{pkg_name}/
+Source0:       https://github.com/LMAX-Exchange/%{pkg_name}/archive/%{version}.tar.gz
+Source1:       http://repo1.maven.org/maven2/com/lmax/%{pkg_name}/%{version}/%{pkg_name}-%{version}.pom
 # see http://www.jmock.org/threading-synchroniser.html
-Patch0:        disruptor-3.3.2-jmock.patch
+Patch0:        %{pkg_name}-3.3.2-jmock.patch
 
-BuildRequires: maven-local
-BuildRequires: mvn(junit:junit)
-BuildRequires: mvn(org.apache.felix:maven-bundle-plugin)
-BuildRequires: mvn(org.hamcrest:hamcrest-library)
-BuildRequires: mvn(org.jmock:jmock-junit4)
-BuildRequires: mvn(org.jmock:jmock-legacy)
+BuildRequires: %{?scl_java_prefix}maven-local
+BuildRequires: %{?scl_java_prefix}junit
+BuildRequires: %{?scl_mvn_prefix}maven-plugin-bundle
+BuildRequires: %{?scl_java_prefix}hamcrest
+%{!?scl:BuildRequires: mvn(org.jmock:jmock-junit4)}
+%{!?scl:BuildRequires: mvn(org.jmock:jmock-legacy)}
+%{?scl:Requires: %scl_runtime}
 
 %if 0
 # Unavailable performance test deps
@@ -34,7 +38,8 @@ Summary:       Javadoc for %{name}
 This package contains javadoc for %{name}.
 
 %prep
-%setup -q
+%{?scl_enable}
+%setup -qn %{pkg_name}-%{version}
 # Cleanup
 find . -name "*.class" -print -delete
 find . -name "*.jar" -type f -print -delete
@@ -72,14 +77,23 @@ rm -r src/test/java/com/lmax/disruptor/dsl/DisruptorTest.java
 # Test fails due to incompatible jmock version
 #rm -f src/test/java/com/lmax/disruptor/EventPollerTest.java
 
-%mvn_file :%{name} %{name}
+# remove test dependencies for scl package
+%{?scl:%pom_remove_dep org.jmock:jmock-junit4}
+%{?scl:%pom_remove_dep org.jmock:jmock-legacy}
+%{?scl:rm -rf src/test}
+
+%mvn_file :%{pkg_name} %{pkg_name}
+%{?scl_disable}
 
 %build
-
+%{?scl_enable}
 %mvn_build -- -Dproject.build.sourceEncoding=UTF-8
+%{?scl_disable}
 
 %install
+%{?scl_enable}
 %mvn_install
+%{?scl_disable}
 
 %files -f .mfiles
 %doc README.md
@@ -89,6 +103,9 @@ rm -r src/test/java/com/lmax/disruptor/dsl/DisruptorTest.java
 %license LICENCE.txt
 
 %changelog
+* Tue Aug 09 2016 Tomas Repik <trepik@redhat.com> - 3.3.4-2
+- scl conversion
+
 * Thu Jun 23 2016 gil cattaneo <puntogil@libero.it> 3.3.4-1
 - update to 3.3.4
 
